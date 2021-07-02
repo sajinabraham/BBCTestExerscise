@@ -43,7 +43,7 @@ class CategoryAdapter(
 
             title.text = item.type
 
-                //Glide.with(context).load( item.image).into(ivCategoryImage)
+            //Glide.with(context).load( item.image).into(ivCategoryImage)
 
             setOnClickListener { listener(item) }
         }

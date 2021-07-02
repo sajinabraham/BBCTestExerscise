@@ -4,6 +4,7 @@ import `in`.sajin.bbctestexerscise.adapter.CategoryAdapter
 import `in`.sajin.bbctestexerscise.model.Fruit
 import `in`.sajin.bbctestexerscise.model.Fruit__1
 import `in`.sajin.bbctestexerscise.sync.GsonRequest
+import `in`.sajin.bbctestexerscise.utils.AppUtils
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         mRequestStartTime = System.currentTimeMillis();
         val queue = Volley.newRequestQueue(this)
         //var url = AppUtils.API_URL + "get_categories"
-        val url = "https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/data.json"
+        val url = AppUtils.API_URL + "data.json"
         val request = GsonRequest(
             Request.Method.GET,
             url,
@@ -74,7 +75,12 @@ class MainActivity : AppCompatActivity() {
                     Log.e("totalRequestTime", "totalRequestTime$totalRequestTime")
                     model.addAll(response.fruit!!)
                     val adapter = CategoryAdapter(this, model) { category ->
-                        FruitDetailsActivity.start(this, category.price, category.weight, category.type)
+                        FruitDetailsActivity.start(
+                            this,
+                            category.price,
+                            category.weight,
+                            category.type
+                        )
                     }
 
                     rvCategory?.adapter = adapter
@@ -89,7 +95,11 @@ class MainActivity : AppCompatActivity() {
                     if (error.networkResponse.statusCode == 404) {
                         Toast.makeText(this, " Url Not Found", Toast.LENGTH_SHORT).show()
                     } else if (error.networkResponse.statusCode == 500) {
-                        Toast.makeText(this, " Internal Server Error. Please try again later", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            " Internal Server Error. Please try again later",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
@@ -99,12 +109,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun eventLoad(totalRequestTime: Long){
+    fun eventLoad(totalRequestTime: Long) {
         val queue = Volley.newRequestQueue(this)
         val params = HashMap<String, String>()
         params["event"] = "load"
         params["data"] = totalRequestTime.toString()
-        val url = "https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/stats"
+        val url = AppUtils.API_URL + "stats"
         val request = GsonRequest(
             Request.Method.GET,
             url,
@@ -119,7 +129,11 @@ class MainActivity : AppCompatActivity() {
                     if (error.networkResponse.statusCode == 404) {
                         Toast.makeText(this, " Url Not Found", Toast.LENGTH_SHORT).show()
                     } else if (error.networkResponse.statusCode == 500) {
-                        Toast.makeText(this, " Internal Server Error. Please try again later", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            " Internal Server Error. Please try again later",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
@@ -128,12 +142,12 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
     }
 
-    fun eventDiplay(totalRequestTime: Long){
+    fun eventDiplay(totalRequestTime: Long) {
         val queue = Volley.newRequestQueue(this)
         val params = HashMap<String, String>()
         params["event"] = "diplay"
         params["data"] = totalRequestTime.toString()
-        val url = "https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/stats"
+        val url = AppUtils.API_URL + "stats"
         val request = GsonRequest(
             Request.Method.GET,
             url,
@@ -148,7 +162,11 @@ class MainActivity : AppCompatActivity() {
                     if (error.networkResponse.statusCode == 404) {
                         Toast.makeText(this, " Url Not Found", Toast.LENGTH_SHORT).show()
                     } else if (error.networkResponse.statusCode == 500) {
-                        Toast.makeText(this, " Internal Server Error. Please try again later", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            " Internal Server Error. Please try again later",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
@@ -157,12 +175,12 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
     }
 
-    fun eventError(totalRequestTime: Long){
+    fun eventError(totalRequestTime: Long) {
         val queue = Volley.newRequestQueue(this)
         val params = HashMap<String, String>()
         params["event"] = "error"
         params["data"] = totalRequestTime.toString()
-        val url = "https://raw.githubusercontent.com/fmtvp/recruit-test-data/master/stats"
+        val url = AppUtils.API_URL + "stats"
         val request = GsonRequest(
             Request.Method.GET,
             url,
@@ -177,7 +195,11 @@ class MainActivity : AppCompatActivity() {
                     if (error.networkResponse.statusCode == 404) {
                         Toast.makeText(this, " Url Not Found", Toast.LENGTH_SHORT).show()
                     } else if (error.networkResponse.statusCode == 500) {
-                        Toast.makeText(this, " Internal Server Error. Please try again later", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            " Internal Server Error. Please try again later",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }
