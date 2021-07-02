@@ -40,7 +40,7 @@ class FruitDetailsActivity : AppCompatActivity() {
         tvweight = findViewById(R.id.tvWeight)
 
         tvfruitname!!.text = type
-        tvprice!!.text = "£:"+price.toString()
-        tvweight!!.text = weight.toString()
+        tvprice!!.text = "£ "+price.toString()
+        tvweight!!.text =weight.toString()+ " Kg"
     }
 }
