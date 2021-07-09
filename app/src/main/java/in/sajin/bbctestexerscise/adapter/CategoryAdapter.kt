@@ -4,6 +4,7 @@ package `in`.sajin.bbctestexerscise.adapter
 import `in`.sajin.bbctestexerscise.R
 import `in`.sajin.bbctestexerscise.model.Fruit
 import `in`.sajin.bbctestexerscise.model.Fruit__1
+import `in`.sajin.bbctestexerscise.model.Root
 import `in`.sajin.bbctestexerscise.sync.GsonRequest
 import android.content.Context
 import android.util.Log
@@ -17,8 +18,8 @@ import com.android.volley.Request
 import com.android.volley.toolbox.Volley
 
 class CategoryAdapter(
-    private val context: Context, private val category: ArrayList<Fruit__1>,
-    private val listener: (Fruit__1) -> Unit
+    private val context: Context, private val category: ArrayList<Root>,
+    private val listener: (Root) -> Unit
 ) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,11 +38,11 @@ class CategoryAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mRequestStartTime: Long = 0
         var totalRequestTime: Long = 0
-        fun bind(item: Fruit__1, listener: (Fruit__1) -> Unit) = with(itemView) {
+        fun bind(item: Root, listener: (Root) -> Unit) = with(itemView) {
 
             val title: TextView = itemView.findViewById(R.id.tvCategoryName)
 
-            title.text = item.type
+            title.text = item.id
 
             //Glide.with(context).load( item.image).into(ivCategoryImage)
 

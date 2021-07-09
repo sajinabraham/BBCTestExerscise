@@ -3,6 +3,7 @@ package `in`.sajin.bbctestexerscise
 import `in`.sajin.bbctestexerscise.adapter.CategoryAdapter
 import `in`.sajin.bbctestexerscise.model.Fruit
 import `in`.sajin.bbctestexerscise.model.Fruit__1
+import `in`.sajin.bbctestexerscise.model.Root
 import `in`.sajin.bbctestexerscise.sync.GsonRequest
 import `in`.sajin.bbctestexerscise.utils.AppUtils
 import android.content.Context
@@ -15,6 +16,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.Volley
+import java.util.*
+import java.util.stream.Collectors
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+import kotlin.collections.MutableSet
+import kotlin.collections.set
+
 
 class MainActivity : AppCompatActivity() {
     var langId: Int? = null
@@ -32,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     var model: ArrayList<Fruit__1> = ArrayList()
+    var root: ArrayList<Root> = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,27 +69,29 @@ class MainActivity : AppCompatActivity() {
     fun loadCategories() {
         mRequestStartTime = System.currentTimeMillis();
         val queue = Volley.newRequestQueue(this)
-        //var url = AppUtils.API_URL + "get_categories"
-        val url = AppUtils.API_URL + "data.json"
+        val url = "https://picsum.photos/v2/list"
         val request = GsonRequest(
             Request.Method.GET,
             url,
-            Fruit::class.java,
+            Root::class.java,
             null,
             { response ->
+
 
                 if (response != null) {
                     totalRequestTime = System.currentTimeMillis() - mRequestStartTime
                     eventLoad(totalRequestTime)
-                    Log.e("totalRequestTime", "totalRequestTime$totalRequestTime")
-                    model.addAll(response.fruit!!)
-                    val adapter = CategoryAdapter(this, model) { category ->
-                        FruitDetailsActivity.start(
-                            this,
-                            category.price,
-                            category.weight,
-                            category.type
-                        )
+                    //Log.e("totalRequestTime", "totalRequestTime$totalRequestTime")
+                    root.addAll(listOf(response))
+
+
+                    val adapter = CategoryAdapter(this, root) { category ->
+//                        FruitDetailsActivity.start(
+//                            this,
+//                            category.price,
+//                            category.weight,
+//                            category.type
+//                        )
                     }
 
                     rvCategory?.adapter = adapter
@@ -108,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         queue.add(request)
 
     }
+
 
     fun eventLoad(totalRequestTime: Long) {
         val queue = Volley.newRequestQueue(this)
